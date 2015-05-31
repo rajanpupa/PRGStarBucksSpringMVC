@@ -4,16 +4,34 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
 		 http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
+	
+	<!-- 
+		Servlet context is an application level object which could be accessed by all servlets.
+		It is used to manage application states.
+	 -->
+	<context-param>
+		<param-name>ApplicationName</param-name>
+		<param-value>StarBucksPRGApp</param-value>
+	</context-param>
 
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		
+		<!-- 
+			servlet config is available to servlets init method.
+			getServletConfig().getInitParameter("servletName");
+			useful for initialization of the srevlet.
+		 -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/spring/dispatcher-servlet.xml</param-value>
 		</init-param>
+		
 		<load-on-startup>1</load-on-startup>
+		
 		<async-supported>true</async-supported>
+		
 	</servlet>
 
 	<servlet-mapping>
@@ -43,7 +61,7 @@
 		<url-pattern>*.png</url-pattern>
 	</servlet-mapping>
 
-	<!-- Spring context files to be loaded -->
+	<!-- Spring context files to be loaded, being put in context -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -51,6 +69,7 @@
         </param-value>
 	</context-param>
 
+	<!-- Listeners are called on events. may be useful for state management. -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
